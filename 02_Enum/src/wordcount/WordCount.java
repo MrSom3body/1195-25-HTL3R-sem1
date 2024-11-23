@@ -6,7 +6,6 @@ public class WordCount {
             @Override
             State handleChar(char c, WordCount context) {
                 if (!Character.isLetter(c)) {
-                    context.counter++;
                     return NOWORD;
                 } else {
                     return INWORD;
@@ -18,6 +17,7 @@ public class WordCount {
             @Override
             State handleChar(char c, WordCount context) {
                 if (Character.isLetter(c)) {
+                    context.counter++;
                     return INWORD;
                 } else {
                     return NOWORD;
@@ -33,7 +33,7 @@ public class WordCount {
     public int count(String text) {
         State state = State.NOWORD;
         counter = 0;
-        for (char c : (text += " ").toCharArray()) {
+        for (char c : text.toCharArray()) {
             state = state.handleChar(c, this);
         }
         return counter;

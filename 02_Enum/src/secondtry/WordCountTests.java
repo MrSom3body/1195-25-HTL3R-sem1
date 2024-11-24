@@ -2,6 +2,13 @@ package secondtry;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class WordCountTests {
     @Test
     void testWordCount() {
@@ -78,5 +85,21 @@ public class WordCountTests {
         assertEquals(2, wordCount.count(" one<img alt=\"<bild \\\" keinwort keinwort\" keinwort>two"));
 
         assertEquals(4, wordCount.count(" \\\"null\\\" one<img alt=\"<bild \\\" keinwort keinwort\" keinwort>two \"three\""));
+    }
+
+    @Test
+    void testCountBig() throws IOException {
+        try (
+                BufferedReader in = Files.newBufferedReader(Path.of("resources/crsto12.html"))
+        ) {
+            StringBuilder content = new StringBuilder();
+            WordCount wordCount = new WordCount();
+            String line;
+            while ((line = in.readLine()) != null) {
+                content.append(line).append("\n");
+            }
+            // The file contains 470528 words (Source: Luka)
+            assertEquals(470528, wordCount.count(content.toString()));
+        }
     }
 }

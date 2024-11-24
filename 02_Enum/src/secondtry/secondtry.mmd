@@ -1,0 +1,17 @@
+stateDiagram-v2
+    [*] --> NO_WORD
+    NO_WORD --> IN_WORD : isLetter
+    NO_WORD --> NO_WORD : else
+    IN_WORD --> IN_WORD : isLetter
+    IN_WORD --> NO_WORD : else
+    IN_WORD --> IN_BRACKET: char = '<'
+    NO_WORD --> IN_BRACKET: char = '<'
+    IN_BRACKET --> IN_BRACKET : else
+    IN_BRACKET --> NO_WORD : char = '>'
+    IN_BRACKET --> IN_QUOTE : char = '"'
+    IN_BRACKET --> IN_BRACKET_ESCAPED : Escapesequenz
+    IN_BRACKET_ESCAPED --> IN_BRACKET : always
+    IN_QUOTE_ESCAPED --> IN_QUOTE : always
+    IN_QUOTE --> IN_QUOTE_ESCAPED : Escapesequenz
+    IN_QUOTE --> IN_BRACKET : char = '"'
+    IN_QUOTE --> IN_QUOTE : else

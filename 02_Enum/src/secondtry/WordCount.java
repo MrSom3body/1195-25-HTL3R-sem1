@@ -66,6 +66,12 @@ public class WordCount {
 
     int counter;
 
+    /**
+     * Counts the number of words in the given text.
+     *
+     * @param text the text to be processed
+     * @return the number of words in the text
+     */
     public int count(String text) {
         WordCount.State state = WordCount.State.NO_WORD;
         counter = 0;

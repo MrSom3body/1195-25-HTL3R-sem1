@@ -21,4 +21,11 @@ public class CSVReaderTest {
         assertThrows(IllegalArgumentException.class, () -> reader.read("\"nicht\"ok"));
         assertThrows(IllegalArgumentException.class, () -> reader.read("\"nicht ok"));
     }
+
+    @Test
+    public void spacesTestRead() {
+        CSVReader reader = new CSVReader(',', '"', true);
+        assertArrayEquals(new String[]{"one", "two ", "three "}, reader.read("   one,    two ,three "));
+        assertArrayEquals(new String[]{"one ", "two  ", "three   "}, reader.read(" one , two  , three   "));
+    }
 }

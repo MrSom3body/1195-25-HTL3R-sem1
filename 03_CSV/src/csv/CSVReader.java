@@ -40,7 +40,7 @@ public class CSVReader {
         }, DISABLE_QUOTED {
             State handleChar(char ch, CSVReader context) {
                 if (ch == '\0') {
-                    return READING;
+                    return DISABLE_QUOTED;
                 } else if (ch == context.delimeter) {
                     return READING;
                 } else {

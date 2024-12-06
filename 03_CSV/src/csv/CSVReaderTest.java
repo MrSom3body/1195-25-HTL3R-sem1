@@ -23,6 +23,13 @@ public class CSVReaderTest {
     }
 
     @Test
+    public void quoteInQuotedTestRead() {
+        CSVReader reader = new CSVReader(',', '"', true);
+        assertArrayEquals(new String[]{"ein,s", "zw\"ei", "drei"}, reader.read("\"ein,s\",\"zw\"\"ei\",drei"));
+        assertArrayEquals(new String[]{"bomboclad69\""}, reader.read("\"bomboclad69\"\"\""));
+    }
+
+    @Test
     public void spacesTestRead() {
         CSVReader reader = new CSVReader(',', '"', true);
         assertArrayEquals(new String[]{"one", "two ", "three "}, reader.read("   one,    two ,three "));

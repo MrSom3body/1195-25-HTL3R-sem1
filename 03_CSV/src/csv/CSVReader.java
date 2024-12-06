@@ -2,6 +2,8 @@ package csv;
 
 import java.util.ArrayList;
 
+import static csv.CSVReader.State.*;
+
 public class CSVReader {
     private final char delimeter;
     private final char doublequote;
@@ -10,34 +12,35 @@ public class CSVReader {
     private ArrayList<String> words;
     private String word;
 
+    private void addWord() {
+        words.add(word);
+        word = "";
+    }
+
+    private State basicReading(char ch) {
+        if (ch == delimeter || ch == '\0') {
+            addWord();
+            return START_READING;
+        } else if (ch == doublequote) {
+            return QUOTED;
+        } else {
+            word += ch;
+            return READING;
+        }
+    }
+
     enum State {
         START_READING {
             State handleChar(char ch, CSVReader context) {
                 if (Character.isWhitespace(ch) && context.skipinitalwhitespace) {
-                    return this;
-                } else if (ch == context.delimeter || ch == '\0') {
-                    context.words.add(context.word);
-                    context.word = "";
                     return START_READING;
-                } else if (ch == context.doublequote) {
-                    return QUOTED;
-                } else {
-                    context.word += ch;
-                    return READING;
+                } else  {
+                    return context.basicReading(ch);
                 }
             }
         }, READING {
             State handleChar(char ch, CSVReader context) {
-                if (ch == context.delimeter || ch == '\0') {
-                    context.words.add(context.word);
-                    context.word = "";
-                    return START_READING;
-                } else if (ch == context.doublequote) {
-                    return QUOTED;
-                } else {
-                    context.word += ch;
-                    return this;
-                }
+                return context.basicReading(ch);
             }
         }, QUOTED {
             State handleChar(char ch, CSVReader context) {
@@ -47,18 +50,16 @@ public class CSVReader {
                     return DISABLE_QUOTED;
                 } else {
                     context.word += ch;
-                    return this;
+                    return QUOTED;
                 }
             }
         }, DISABLE_QUOTED {
             State handleChar(char ch, CSVReader context) {
                 if (ch == '\0') {
-                    context.words.add(context.word);
-                    context.word = "";
+                    context.addWord();
                     return DISABLE_QUOTED;
                 } else if (ch == context.delimeter) {
-                    context.words.add(context.word);
-                    context.word = "";
+                    context.addWord();
                     return START_READING;
                 } else if (ch == context.doublequote) {
                     context.word += ch;
@@ -81,7 +82,7 @@ public class CSVReader {
     public String[] read(String input) {
         word = "";
         words = new ArrayList<>();
-        State state = State.START_READING;
+        State state = START_READING;
         String modInput = input + "\0";
 
         for (char ch : modInput.toCharArray()) {

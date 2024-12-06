@@ -11,12 +11,27 @@ public class CSVReader {
     private String word;
 
     enum State {
-        READING {
+        START_READING {
+            State handleChar(char ch, CSVReader context) {
+                if (Character.isWhitespace(ch) && context.skipinitalwhitespace) {
+                    return this;
+                } else if (ch == context.delimeter || ch == '\0') {
+                    context.words.add(context.word);
+                    context.word = "";
+                    return START_READING;
+                } else if (ch == context.doublequote) {
+                    return QUOTED;
+                } else {
+                    context.word += ch;
+                    return READING;
+                }
+            }
+        }, READING {
             State handleChar(char ch, CSVReader context) {
                 if (ch == context.delimeter || ch == '\0') {
                     context.words.add(context.word);
                     context.word = "";
-                    return READING;
+                    return START_READING;
                 } else if (ch == context.doublequote) {
                     return QUOTED;
                 } else {
@@ -42,7 +57,7 @@ public class CSVReader {
                 if (ch == '\0') {
                     return DISABLE_QUOTED;
                 } else if (ch == context.delimeter) {
-                    return READING;
+                    return START_READING;
                 } else {
                     throw new IllegalArgumentException("Unexpected token after closing quote: " + ch);
                 }
@@ -61,7 +76,7 @@ public class CSVReader {
     public String[] read(String input) {
         word = "";
         words = new ArrayList<>();
-        State state = State.READING;
+        State state = State.START_READING;
         String modInput = input + "\0";
 
         for (char ch : modInput.toCharArray()) {

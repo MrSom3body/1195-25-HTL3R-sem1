@@ -44,8 +44,6 @@ public class CSVReader {
                 if (ch == '\0') {
                     throw new IllegalArgumentException("Open quote after: " + ch);
                 } else if (ch == context.doublequote) {
-                    context.words.add(context.word);
-                    context.word = "";
                     return DISABLE_QUOTED;
                 } else {
                     context.word += ch;
@@ -55,9 +53,16 @@ public class CSVReader {
         }, DISABLE_QUOTED {
             State handleChar(char ch, CSVReader context) {
                 if (ch == '\0') {
+                    context.words.add(context.word);
+                    context.word = "";
                     return DISABLE_QUOTED;
                 } else if (ch == context.delimeter) {
+                    context.words.add(context.word);
+                    context.word = "";
                     return START_READING;
+                } else if (ch == context.doublequote) {
+                    context.word += ch;
+                    return QUOTED;
                 } else {
                     throw new IllegalArgumentException("Unexpected token after closing quote: " + ch);
                 }

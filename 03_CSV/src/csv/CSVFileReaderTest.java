@@ -23,12 +23,10 @@ public class CSVFileReaderTest {
     }
 
     @Test
-    public void testNextWithTry() {
+    public void testNextWithTry() throws IOException {
         try (CSVFileReader reader = new CSVFileReader("resources/adjacency.csv", ';', '"', true)) {
             assertArrayEquals(new String[]{"", "A", "B", "C", "D", "E", "F", "G", "H"}, reader.next());
             assertArrayEquals(new String[]{"A", "", "4", "7", "8", "", "", "", ""}, reader.next());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 }

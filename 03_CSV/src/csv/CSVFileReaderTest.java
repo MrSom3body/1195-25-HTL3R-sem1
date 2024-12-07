@@ -19,7 +19,7 @@ public class CSVFileReaderTest {
         assertArrayEquals(new String[]{"F", "", "3", "", "", "1", "", "", "1"}, reader.next());
         assertArrayEquals(new String[]{"G", "", "", "1", "2", "", "", "", "1"}, reader.next());
         assertArrayEquals(new String[]{"H", "", "", "", "", "5", "1", "1", ""}, reader.next());
-        assertArrayEquals(new String[0], reader.next());
+        assertArrayEquals(null, reader.next());
     }
 
     @Test

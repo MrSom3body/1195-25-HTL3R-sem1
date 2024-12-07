@@ -1,8 +1,11 @@
 package csv;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
-public class CSVFileReader {
+public class CSVFileReader implements AutoCloseable {
     private final CSVReader reader;
     private final BufferedReader fileReader;
 
@@ -18,5 +21,10 @@ public class CSVFileReader {
         } else {
             return reader.read(fileLine);
         }
+    }
+
+    @Override
+    public void close() throws IOException {
+        fileReader.close();
     }
 }

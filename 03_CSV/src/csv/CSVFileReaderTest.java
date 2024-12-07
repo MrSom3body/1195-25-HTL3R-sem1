@@ -21,4 +21,14 @@ public class CSVFileReaderTest {
         assertArrayEquals(new String[]{"H", "", "", "", "", "5", "1", "1", ""}, reader.next());
         assertArrayEquals(new String[0], reader.next());
     }
+
+    @Test
+    public void testNextWithTry() {
+        try (CSVFileReader reader = new CSVFileReader("resources/adjacency.csv", ';', '"', true)) {
+            assertArrayEquals(new String[]{"", "A", "B", "C", "D", "E", "F", "G", "H"}, reader.next());
+            assertArrayEquals(new String[]{"A", "", "4", "7", "8", "", "", "", ""}, reader.next());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

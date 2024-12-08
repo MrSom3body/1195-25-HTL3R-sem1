@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import static csv.CSVReader.State.*;
 
 public class CSVReader {
-    private final char delimeter;
+    private final char delimiter;
     private final char doublequote;
     private final boolean skipinitalwhitespace;
 
@@ -18,7 +18,7 @@ public class CSVReader {
     }
 
     private State basicReading(char ch) {
-        if (ch == delimeter || ch == '\0') {
+        if (ch == delimiter || ch == '\0') {
             addWord();
             return START_READING;
         } else if (ch == doublequote) {
@@ -58,7 +58,7 @@ public class CSVReader {
                 if (ch == '\0') {
                     context.addWord();
                     return DISABLE_QUOTED;
-                } else if (ch == context.delimeter) {
+                } else if (ch == context.delimiter) {
                     context.addWord();
                     return START_READING;
                 } else if (ch == context.doublequote) {
@@ -73,8 +73,8 @@ public class CSVReader {
         abstract State handleChar(char ch, CSVReader context);
     }
 
-    public CSVReader(char delimeter, char doublequote, boolean skipinitwhitespace) {
-        this.delimeter = delimeter;
+    public CSVReader(char delimiter, char doublequote, boolean skipinitwhitespace) {
+        this.delimiter = delimiter;
         this.doublequote = doublequote;
         this.skipinitalwhitespace = skipinitwhitespace;
     }

@@ -1,18 +1,15 @@
 package csv;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class CSVFileReader implements AutoCloseable, Iterable<String[]> {
+public class CSVFileReader implements Closeable, Iterable<String[]> {
     private final CSVReader reader;
     private final BufferedReader fileReader;
 
-    public CSVFileReader(String filename, char delimeter, char doublequote, boolean skipinitalwhitespace) throws FileNotFoundException {
-        reader = new CSVReader(delimeter, doublequote, skipinitalwhitespace);
+    public CSVFileReader(String filename, char delimiter, char doublequote, boolean skipinitalwhitespace) throws FileNotFoundException {
+        reader = new CSVReader(delimiter, doublequote, skipinitalwhitespace);
         fileReader = new BufferedReader(new FileReader(filename));
     }
 

@@ -12,11 +12,19 @@ public class CSVReader {
     private ArrayList<String> words;
     private String word;
 
+    /**
+     * Adds the current word to the list of words and resets the word.
+     */
     private void addWord() {
         words.add(word);
         word = "";
     }
 
+    /**
+     * Handles the basic reading of a character.
+     * @param ch The character to read.
+     * @return The next state.
+     */
     private State basicReading(char ch) {
         if (ch == delimiter || ch == '\0') {
             addWord();
@@ -73,12 +81,23 @@ public class CSVReader {
         abstract State handleChar(char ch, CSVReader context);
     }
 
+    /**
+     * Constructor for the CSVReader.
+     * @param delimiter The delimiter character.
+     * @param doublequote The double quote character.
+     * @param skipinitwhitespace Whether to skip initial whitespace.
+     */
     public CSVReader(char delimiter, char doublequote, boolean skipinitwhitespace) {
         this.delimiter = delimiter;
         this.doublequote = doublequote;
         this.skipinitalwhitespace = skipinitwhitespace;
     }
 
+    /**
+     * Reads the input string and returns the words.
+     * @param input The input string.
+     * @return The words.
+     */
     public String[] read(String input) {
         word = "";
         words = new ArrayList<>();

@@ -3,6 +3,8 @@ package csv;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
@@ -27,6 +29,30 @@ public class CSVFileReaderTest {
         try (CSVFileReader reader = new CSVFileReader("resources/adjacency.csv", ';', '"', true)) {
             assertArrayEquals(new String[]{"", "A", "B", "C", "D", "E", "F", "G", "H"}, reader.next());
             assertArrayEquals(new String[]{"A", "", "4", "7", "8", "", "", "", ""}, reader.next());
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        try (CSVFileReader reader = new CSVFileReader("03_CSV/resources/adjacency.csv", ';', '"', true)) {
+            ArrayList<ArrayList<String>> adjacency = new ArrayList<>();
+            StringBuilder line = new StringBuilder();
+
+            for (String[] csvLine : reader) {
+                adjacency.add(new ArrayList<>(Arrays.asList(csvLine)));
+            }
+
+            for (int row = 1; row < adjacency.size(); row++) {
+                line.setLength(0);
+                line.append(String.format("%s: ", adjacency.getFirst().get(row)));
+                for (int col = 1; col < adjacency.get(row).size(); col++) {
+                    if (!adjacency.get(row).get(col).isEmpty()) {
+                        line.append(String.format("nach %s:%s, ", adjacency.getFirst().get(col), adjacency.get(row).get(col)));
+                    }
+                }
+
+                line.setLength(Math.max(line.length() - 2, 0));
+                System.out.println(line);
+            }
         }
     }
 }

@@ -1,0 +1,23 @@
+stateDiagram-v2
+    [*] --> START_READING
+    START_READING --> START_READING: Character.isWhitespace(ch) && context.skipinitalwhitespace
+    START_READING --> START_READING: ch == delimiter
+    START_READING --> QUOTED: ch == doublequote
+    START_READING --> READING: else
+
+    READING --> START_READING: Character.isWhitespace(ch) && context.skipinitalwhitespace
+    READING --> START_READING: ch == delimiter
+    READING --> QUOTED: ch == doublequote
+    READING --> READING: else
+
+    QUOTED --> DISABLE_QUOTED: ch == doublequote
+    QUOTED --> QUOTED: else
+
+    DISABLE_QUOTED --> START_READING: ch == delimiter
+    DISABLE_QUOTED --> QUOTED: ch == doublequote
+
+    START_READING --> [*]: ch == '\0'
+    READING --> [*]: ch == '\0'
+    QUOTED --> [*]: ch == '\0' --> IllegalArgumentException
+    DISABLE_QUOTED --> [*]: ch == '\0'
+    DISABLE_QUOTED --> [*]: else -> IllegalArgumentException

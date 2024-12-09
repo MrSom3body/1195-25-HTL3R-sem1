@@ -17,6 +17,12 @@ public class Count {
 
         Pattern p = Pattern.compile("\\w+");
         Matcher m = p.matcher(text);
-        return m.results().count();
+        
+        int counter = 0;
+        while (m.find()) {
+            counter++;
+        }
+        
+        return counter;
     }
 }

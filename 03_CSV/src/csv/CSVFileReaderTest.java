@@ -43,10 +43,10 @@ public class CSVFileReaderTest {
 
             for (int row = 1; row < adjacency.size(); row++) {
                 line.setLength(0);
-                line.append(String.format("%s: ", adjacency.getFirst().get(row)));
+                line.append(String.format("%s: ", adjacency.get(0).get(row)));
                 for (int col = 1; col < adjacency.get(row).size(); col++) {
                     if (!adjacency.get(row).get(col).isEmpty()) {
-                        line.append(String.format("nach %s:%s, ", adjacency.getFirst().get(col), adjacency.get(row).get(col)));
+                        line.append(String.format("nach %s:%s, ", adjacency.get(0).get(col), adjacency.get(row).get(col)));
                     }
                 }
 

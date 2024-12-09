@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +27,7 @@ public class WordCountTests {
     @Test
     void testCountBig() throws IOException {
         try (
-                BufferedReader in = Files.newBufferedReader(Path.of("resources/crsto12.html"))
+                BufferedReader in = Files.newBufferedReader(Paths.get("resources/crsto12.html"))
         ) {
             StringBuilder content = new StringBuilder();
             WordCount wordCount = new WordCount();

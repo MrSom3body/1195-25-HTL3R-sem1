@@ -19,7 +19,7 @@
           # jetbrains.idea-ultimate
           jdt-language-server
 
-          jdk
+          jdk8
         ];
 
         shellHook = ''

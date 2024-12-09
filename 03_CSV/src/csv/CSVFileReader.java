@@ -45,7 +45,7 @@ public class CSVFileReader implements Closeable, Iterable<String[]> {
      * @return An iterator over the lines of the file.
      */
     public Iterator<String[]> iterator() {
-        return new Iterator<>() {
+        return new Iterator<String[]>() {
             private String[] nextLine = fetchNextLine();
 
             /**

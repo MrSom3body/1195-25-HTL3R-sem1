@@ -1,4 +1,9 @@
+### Nix ###
+.direnv/
+
 ### IntelliJ IDEA ###
+.idea/
+*.iml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -27,10 +32,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-# Ignore IDE-specific files
-.idea/
-*.iml
 
 # Ignore non PDF documents
 *.odt

@@ -33,6 +33,10 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-# Ignore non PDF documents
+### Documents ###
 *.odt
 *.docx
+
+### Python ###
+__pycache__/
+*.py[cod]

@@ -22,6 +22,10 @@ def collatz_sequence(number: int) -> list[int]:
     return cl
 
 
+def longest_collatz_sequence(n: int) -> tuple[int, int]:
+    return (0, 0)
+
+
 if __name__ == "__main__":
     assert collatz(1) == 4
     assert collatz(5) == 16
@@ -66,3 +70,6 @@ if __name__ == "__main__":
         2,
         1,
     ]
+
+    assert longest_collatz_sequence(100) == (97, 119)
+    assert longest_collatz_sequence(69) == (55, 113)

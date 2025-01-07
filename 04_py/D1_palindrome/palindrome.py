@@ -50,4 +50,4 @@ if __name__ == "__main__":
 
     print("Expected: 906609, Actual:", palindrome_product(1000000))  # 913 x 993
     print("Expected: 793397, Actual:", palindrome_product(800000))  # 869 x 913
-    print("Expected: 580085, Actual:", palindrome_product(600000))  # 995 x 583
+    print("Expected: 595595, Actual:", palindrome_product(600000))  # 935 x 637

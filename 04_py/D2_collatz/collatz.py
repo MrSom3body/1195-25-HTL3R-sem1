@@ -23,7 +23,20 @@ def collatz_sequence(number: int) -> list[int]:
 
 
 def longest_collatz_sequence(n: int) -> tuple[int, int]:
-    return (0, 0)
+    """
+    :param number: Startzahl
+    :return: Startwert und Länge der längsten Collatz Zahlenfolge deren Startwert <=n ist
+
+    >>> longest_collatz_sequence(100)
+    (97, 119)
+    """
+    max_cl = (0, 0)
+    for i in range(n, 0, -1):
+        cl = collatz_sequence(i)
+        if len(cl) > max_cl[1]:
+            max_cl = (i, len(cl))
+
+    return max_cl
 
 
 if __name__ == "__main__":

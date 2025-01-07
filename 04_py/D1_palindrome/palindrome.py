@@ -64,6 +64,10 @@ def to_base(number: int, base: int) -> str:
     return new_base
 
 
+def get_dec_hex_palindrome(x: int) -> int:
+    return -1
+
+
 if __name__ == "__main__":
     assert is_palindrome("anna")
     assert not is_palindrome("hello")
@@ -80,3 +84,7 @@ if __name__ == "__main__":
     import doctest
 
     _ = doctest.testmod()
+
+    assert get_dec_hex_palindrome(1000) == 979
+    assert get_dec_hex_palindrome(69420) == 41514
+    assert get_dec_hex_palindrome(1_000_000) == 845548

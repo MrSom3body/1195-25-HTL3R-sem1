@@ -1,6 +1,5 @@
 __author__ = "Karun Sandhu"
 
-
 def is_palindrome(s: str) -> bool:
     """
     :param s: string to check if it is a palindrom
@@ -14,7 +13,16 @@ def is_palindrome(s: str) -> bool:
 
 
 def is_palindrome_sentence(s: str)-> bool:
-    return False
+    """
+    :param s: string of a sentence to check if it is a palindrom
+    :return: True if s is a palindrom, False otherwise
+    """
+    filtered = ""
+    for ch in s:
+        if ch.isalnum(): 
+            filtered += ch
+
+    return is_palindrome(filtered.lower())
 
 if __name__ == "__main__":
     print("Expected: True, Actual:", is_palindrome("anna"))

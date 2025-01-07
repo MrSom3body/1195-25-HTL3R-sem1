@@ -65,6 +65,9 @@ def to_base(number: int, base: int) -> str:
 
 
 def get_dec_hex_palindrome(x: int) -> int:
+    for i in range(x, 0, -1):
+        if is_palindrome(str(i)) and is_palindrome(str(to_base(i, 16))):
+            return i
     return -1
 
 

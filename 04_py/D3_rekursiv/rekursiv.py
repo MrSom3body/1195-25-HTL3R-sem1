@@ -12,4 +12,5 @@ def M(n: int) -> int:
 if __name__ == "__main__":
     # The McCarthy-91 function is special because every input from 0-101 will return 91
     m_list = [M(i) for i in range(1, 201)]
-    print(m_list)
+    m_dict = {i: M(i) for i in range(1, 201)}
+    print(m_dict)

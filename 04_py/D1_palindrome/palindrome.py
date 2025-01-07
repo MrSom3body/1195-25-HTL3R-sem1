@@ -2,7 +2,15 @@ __author__ = "Karun Sandhu"
 
 
 def is_palindrome(s: str) -> bool:
-    return False
+    """
+    :param s: string to check if it is a palindrom
+    :return: True if s is a palindrom, False otherwise
+    """
+    reverse = ""
+    for ch in reversed(s):
+        reverse += ch
+
+    return s == reverse
 
 
 if __name__ == "__main__":

@@ -26,6 +26,10 @@ def is_palindrome_sentence(s: str) -> bool:
     return is_palindrome(filtered.lower())
 
 
+def palindrome_product(x: int) -> int:
+    return 0
+
+
 if __name__ == "__main__":
     print("Expected: True, Actual:", is_palindrome("anna"))
     print("Expected: False, Actual:", is_palindrome("hello"))
@@ -43,3 +47,7 @@ if __name__ == "__main__":
         "Expected: True, Actual:",
         is_palindrome_sentence("A man, a plan, a canal, Panama!"),
     )
+
+    print("Expected: 906609, Actual:", palindrome_product(1000000))  # 913 x 993
+    print("Expected: 793397, Actual:", palindrome_product(800000))  # 869 x 913
+    print("Expected: 580085, Actual:", palindrome_product(600000))  # 995 x 583

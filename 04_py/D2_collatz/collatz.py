@@ -9,7 +9,17 @@ def collatz(n: int) -> int:
 
 
 def collatz_sequence(number: int) -> list[int]:
-    return []
+    """
+    :param number: Startzahl
+    :return: Collatz Zahlenfolge, resultierend aus n
+    >>> collatz_sequence(19)
+    [19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
+    """
+    cl: list[int] = [number]
+    while cl[-1] != 1:
+        cl.append(collatz(cl[-1]))
+
+    return cl
 
 
 if __name__ == "__main__":

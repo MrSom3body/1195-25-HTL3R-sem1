@@ -65,26 +65,17 @@ def to_base(number: int, base: int) -> str:
 
 
 if __name__ == "__main__":
-    print("Expected: True, Actual:", is_palindrome("anna"))
-    print("Expected: False, Actual:", is_palindrome("hello"))
-    print("Expected: True, Actual:", is_palindrome("racecar"))
+    assert is_palindrome("anna")
+    assert not is_palindrome("hello")
+    assert is_palindrome("racecar")
 
-    print(
-        "Expected: True, Actual:",
-        is_palindrome_sentence("Was it a car or a cat I saw?"),
-    )
-    print(
-        "Expected: False, Actual:",
-        is_palindrome_sentence("This is not a palindrome."),
-    )
-    print(
-        "Expected: True, Actual:",
-        is_palindrome_sentence("A man, a plan, a canal, Panama!"),
-    )
+    assert is_palindrome_sentence("Was it a car or a cat I saw?")
+    assert not is_palindrome_sentence("This is not a palindrome.")
+    assert is_palindrome_sentence("A man, a plan, a canal, Panama!")
 
-    print("Expected: 906609, Actual:", palindrome_product(1000000))  # 913 x 993
-    print("Expected: 793397, Actual:", palindrome_product(800000))  # 869 x 913
-    print("Expected: 595595, Actual:", palindrome_product(600000))  # 935 x 637
+    assert palindrome_product(1000000) == 906609  # 913 x 993
+    assert palindrome_product(800000) == 793397  # 869 x 913
+    assert palindrome_product(600000) == 595595  # 935 x 637
 
     import doctest
 

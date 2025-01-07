@@ -2,6 +2,7 @@
 .devenv*
 devenv.local.nix
 .direnv
+.envrc
 .pre-commit-config.yaml
 
 ### Jetbrains IDEs ###

@@ -27,7 +27,24 @@ def is_palindrome_sentence(s: str) -> bool:
 
 
 def palindrome_product(x: int) -> int:
-    return 0
+    """
+    :param x: max value for the palindrome
+    :return: a palindromic number (got by multiplying two 3-digit numbers) less than x
+    """
+
+    largest_palindrome = -1
+
+    for a in range(999, 99, -1):
+        for b in range(a, 99, -1):
+            prod = a * b
+            if prod >= x:
+                continue
+            elif prod < largest_palindrome:
+                break
+            if is_palindrome(str(prod)):
+                largest_palindrome = prod
+
+    return largest_palindrome
 
 
 if __name__ == "__main__":

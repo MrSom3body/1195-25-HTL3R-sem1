@@ -1,6 +1,7 @@
 def collatz(n: int) -> int:
     """
     :param n: non-negative integer
+    :return: the next number in the collatz sequence
     """
     if n % 2 == 0:
         return int(n / 2)

@@ -1,31 +1,47 @@
-def collatz(n: int) -> int:
+import signal
+from types import FrameType
+
+
+def handler(signum: int, frame: FrameType | None) -> TimeoutError:
+    """
+    :param signum: the signal number
+    :param frame: the current stack frame
+    :raises TimeoutError: Always raised to indicate a timeout
+    """
+    raise TimeoutError("Timed out!")
+
+
+def collatz(n: int, p: int = 3) -> int:
     """
     :param n: non-negative integer
+    :param p: non-negative integer (default: 3) for p in the collatz formula
     :return: the next number in the collatz sequence
     """
     if n % 2 == 0:
         return int(n / 2)
     else:
-        return 3 * n + 1
+        return p * n + 1
 
 
-def collatz_sequence(number: int) -> list[int]:
+def collatz_sequence(number: int, p: int = 3) -> list[int]:
     """
     :param number: Startzahl
+    :param p: non-negative integer (default: 3) for p in the collatz formula
     :return: Collatz Zahlenfolge, resultierend aus n
     >>> collatz_sequence(19)
     [19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
     """
     cl: list[int] = [number]
     while cl[-1] != 1:
-        cl.append(collatz(cl[-1]))
+        cl.append(collatz(cl[-1], p))
 
     return cl
 
 
-def longest_collatz_sequence(n: int) -> tuple[int, int]:
+def longest_collatz_sequence(n: int, p: int = 3) -> tuple[int, int]:
     """
     :param number: Startzahl
+    :param p: non-negative integer (default: 3) for p in the collatz formula
     :return: Startwert und Länge der längsten Collatz Zahlenfolge deren Startwert <=n ist
 
     >>> longest_collatz_sequence(100)
@@ -33,7 +49,7 @@ def longest_collatz_sequence(n: int) -> tuple[int, int]:
     """
     max_cl = (0, 0)
     for i in range(n, 0, -1):
-        cl = collatz_sequence(i)
+        cl = collatz_sequence(i, p)
         if len(cl) > max_cl[1]:
             max_cl = (i, len(cl))
 
@@ -87,3 +103,14 @@ if __name__ == "__main__":
 
     assert longest_collatz_sequence(100) == (97, 119)
     assert longest_collatz_sequence(69) == (55, 113)
+
+    for p in range(1, 50):
+        _ = signal.signal(signal.SIGALRM, handler)
+        _ = signal.alarm(5)
+        try:
+            _ = collatz_sequence(7, p)
+            print(f"Collatz Sequence for n=7 and p={p} worked.")
+        except TimeoutError:
+            print(f"Collatz Sequence for n=7 and p={p} did not work!")
+    # it seems that increasing p will either increase the length of the
+    # sequence OR just get bigger and bigger

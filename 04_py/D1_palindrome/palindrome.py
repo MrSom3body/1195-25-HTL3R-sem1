@@ -49,7 +49,7 @@ def palindrome_product(x: int) -> int:
 
 def to_base(number: int, base: int) -> str:
     """
-    :param number: Zahl im 10er-Syste,
+    :param number: Zahl im 10er-System
     :param base: Zielsystem (maximal 36)
     :return: Zahl im Zielsystem als String
     >>> to_base(1234, 16)

@@ -46,7 +46,6 @@
             {
               packages = with pkgs; [
                 git # duh
-                helix # the best code editor
 
                 jdt-language-server
                 jdk8

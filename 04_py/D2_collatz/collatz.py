@@ -31,11 +31,10 @@ def collatz_sequence(number: int, p: int = 3) -> list[int]:
     >>> collatz_sequence(19)
     [19, 58, 29, 88, 44, 22, 11, 34, 17, 52, 26, 13, 40, 20, 10, 5, 16, 8, 4, 2, 1]
     """
-    cl: list[int] = [number]
-    while cl[-1] != 1:
-        cl.append(collatz(cl[-1], p))
-
-    return cl
+    if number == 1:
+        return [number]
+    else:
+        return [number, *collatz_sequence(collatz(number, p), p)]
 
 
 def longest_collatz_sequence(n: int, p: int = 3) -> tuple[int, int]:
@@ -109,8 +108,10 @@ if __name__ == "__main__":
         _ = signal.alarm(5)
         try:
             _ = collatz_sequence(7, p)
-            print(f"Collatz Sequence for n=7 and p={p} worked.")
+            print(f"Collatz Sequence for n=7 and {p=} worked.")
         except TimeoutError:
-            print(f"Collatz Sequence for n=7 and p={p} did not work!")
+            print(f"Collatz Sequence for n=7 and {p=} did not work!")
+        except RecursionError:
+            print(f"Collatz sequence with n=7 and {p=} reached max recursions!")
     # it seems that increasing p will either increase the length of the
-    # sequence OR just get bigger and bigger
+    # sequence OR just get bigger and bigger until it reaces max recursions
